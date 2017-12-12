@@ -26,6 +26,8 @@ def index(request):
         if 'user_login' in request.session:
             npm = request.session['kode_identitas']          
         return render(request,html,response)
+    else :
+        return HttpResponseRedirect('login:index')
 
 def update_status(request):
     form = Status_Form(request.POST or None)
