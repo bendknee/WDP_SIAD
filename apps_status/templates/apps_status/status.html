@@ -18,8 +18,6 @@ $(".delete-button").on("click",function(){
 {% endblock %}
 
 {% block content %}
-<div id="page_title"><b><i>Update Status</i></b></div>
-<hr/>
 <section>
 <form id="form" method="POST" action="{% url 'status:update_status' %}" }>
 	{% csrf_token %}
