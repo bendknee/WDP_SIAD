@@ -19,9 +19,6 @@ class statusUnitTest(TestCase):
         response_post = Client().post('/status/update_status/', {'status': status})
         self.assertEqual(response_post.status_code, 404)
 
-    def test_post_status_url_is_using_update_status_func(self):
-        found = resolve('/status/update_status/')
-        self.assertEqual(found.func, update_status)
 
     def test_status_delete_button(self):
         new_activity = Status.objects.create(status='Do something')
