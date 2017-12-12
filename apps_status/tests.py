@@ -7,7 +7,7 @@ from .models import Status
 class statusUnitTest(TestCase):
     def test_apps_status_url_is_exist(self):
         response = Client().get('/mahasiswa/status/')
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 302)
     
     def test_model_can_create_status(self):
         new_status = Status.objects.create(status = 'I play dota everyday~')
