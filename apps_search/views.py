@@ -19,10 +19,9 @@ def index(request):
     status = Status.objects.filter(user=user)
     response['total_post'] = status.count()
     response['name'] = nama
+    response['npm'] = npm
     if status.count()>0:
         response['status'] = status.order_by('-id')[0].status
-    if 'user_login' in request.session:
-        npm = request.session['kode_identitas']
     return render(request, html, response)
 
 def search(request, key):
