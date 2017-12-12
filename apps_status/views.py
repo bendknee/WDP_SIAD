@@ -12,11 +12,12 @@ def index(request):
         npm = request.session['kode_identitas']
         access_token = request.session['access_token']
         nama = get_data_user(access_token,npm)['nama']
+        response['npm']=request.session['kode_identitas']
+        user = User.objects.get(npm=npm)
         response['status_form'] = Status_Form
-        response['list_status'] = Status.objects.all()[::-1]
+        response['list_status'] = Status.objects.filter(user=user).all()[::-1]
         html = 'apps_status/status.html'
         response['author'] = request.session['user_login']
-        user = User.objects.get(npm=npm)
         status = Status.objects.filter(user=user)
         response['total_post'] = status.count()
         response['name'] = nama
