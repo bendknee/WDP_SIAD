@@ -18,3 +18,9 @@ class ProfileUnitTest(TestCase):
         self.client.post('/mahasiswa/login/custom_auth/login/', {'username': self.username, 'password': self.password},follow=True)
         response = self.client.get('/mahasiswa/profile/',follow=True)
         self.assertEqual(response.status_code,200)
+
+    def test_profile_edit_is_exist(self):
+        self.client.post('/mahasiswa/login/custom_auth/login/', {'username': self.username, 'password': self.password},follow=True)
+        npm = self.client.session['kode_identitas']
+        response = self.client.get('/mahasiswa/profile/'+npm+'/edit/',follow=True)
+        self.assertEqual(response.status_code,200)
