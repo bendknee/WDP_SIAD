@@ -26,6 +26,7 @@ def index(request):
         response['status'] = status.order_by('-id')[0].status
     if 'user_login' in request.session:
         npm = request.session['kode_identitas']
+        response['npm'] =  request.session['kode_identitas']
     html = 'app_riwayat/riwayat.html'
     return render(request, html, response)
 
