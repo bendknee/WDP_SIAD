@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from .forms import Status_Form
 from .models import Status
-from apps_profile import models
+from apps_profile.models import User
 # Create your views here.
 
 response = {}
