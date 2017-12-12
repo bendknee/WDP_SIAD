@@ -6,10 +6,15 @@ import environ
 env = environ.Env(DEBUG=(bool, False),)
 environ.Env.read_env('.env')
 class ProfileUnitTest(TestCase):
+    def setUp(self):
+	    self.username = env("SSO_USERNAME")
+	    self.password = env("SSO_PASSWORD")
+
     def test_profile_url_is_exist(self):
         response = Client().get('/mahasiswa/profile/',follow=True)
         self.assertEqual(response.status_code,200)
 
     def test_profile_login_is_exist(self):
-        response = self.client.post('/mahasiswa/login/custom_auth/login/',{"username":env('SSO_USERNAME'),"password":env('SSO_PASSWORD')},follow=True)
-        self.assertEqual(response.status_code,404)
+        self.client.post('/mahasiswa/login/custom_auth/login/', {'username': self.username, 'password': self.password},follow=True)
+        response = self.client.get('/mahasiswa/profile/',follow=True)
+        self.assertEqual(response.status_code,200)
