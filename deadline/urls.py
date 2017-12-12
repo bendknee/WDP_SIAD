@@ -24,7 +24,6 @@ import apps_search.urls as apps_search
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^mahasiswa/login/', include(apps_login, namespace = 'login')),
     url(r'^mahasiswa/profile/',include(apps_profile,namespace='profile')),
     url(r'^mahasiswa/riwayat/', include(apps_riwayat,namespace='riwayat')),
 	url(r'^mahasiswa/search/', include(apps_search,namespace='search')),
