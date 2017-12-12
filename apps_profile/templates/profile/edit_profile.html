@@ -1,0 +1,150 @@
+{% load staticfiles %}
+<html>
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <center>
+      <div id="picture"></div>
+      <h4 id="npm"> {{ kode_identitas }} </h4>
+      <span><button id="save">SIMPAN</button></span>
+      <span><button onclick="location.href='{% url 'profile:index' %}'">KELUAR</button></span>
+    </center>
+    <h2>Data Pribadi</h2>
+    <script type="IN/Login"></script>
+    <div id="name"></div>
+    <div id="email"></div>
+    <div id="linkedin"></div>
+    <div class="nilai">
+      <h4><strong>Tampilkan nilai</strong></h4>
+      <label><input type="radio" id="akses-nilai" name ="nilai" value="no" checked="True"> Tidak</label>
+      <label><input type="radio" id="akses-nilai" name="nilai" value="yes"> Ya</label>
+    </div>
+    {% csrf_token %}
+    <div class="#keahlian">
+      <h2>Keahlian</h2>
+      <table id="user-skill">
+      </table>
+      <button id="tambah">Tambahkan</button>
+    </div>
+  </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+<script type="text/javascript" src="//platform.linkedin.com/in.js">
+  api_key: 81 ntyusjqkvtoc
+  onLoad: onLinkedInLoad
+  authorize: True
+</script>
+
+
+<script type="text/javascript">
+  localStorage.skill = JSON.stringify([{
+      'id': 'Java',
+      'text': 'Java',
+    }, {
+      'id': 'Python',
+      'text': 'Python',
+    }, {
+      'id': 'C',
+      'text': 'C',
+    }, {
+      'id': 'R',
+      'text': 'R',
+    },
+    {
+      'id': 'Erlang',
+      'text': 'Erlang',
+    }
+  ])
+  localStorage.level = JSON.stringify([{
+    'id': 'Beginner',
+    'text': 'Beginner'
+  }, {
+    'id': 'Intermediate',
+    'text': 'Intermediate'
+  }, {
+    'id': 'Expert',
+    'text': 'Expert'
+  }])
+  // Setup an event listener to make an API call once auth is complete
+  function onLinkedInLoad() {
+    IN.Event.on(IN, "auth", getProfileData);
+  }
+
+  // Handle the successful return from the API call
+  function onSuccess(data) {
+    console.log(data);
+  }
+  // Use the API call wrapper to request the member's profile data
+  function getProfileData() {
+    IN.API.Profile("me").fields("id", "first-name", "last-name", "headline", "location", "picture-url", "public-profile-url", "email-address").result(displayProfileData).error(onError);
+  }
+
+  // Handle the successful return from the API call
+  function displayProfileData(data) {
+    window.user = data.values[0];
+    $("#picture").append('<img src="' + user.pictureUrl + '" height="100" width="100" class="img-circle">');
+    $("#name").append('<h3>Name: </h3>' + '<input type="text" value="' + user.firstName + ' ' + user.lastName + '">');
+    $("#email").append('<h3>Email: </h3>' + '<input type="text" value="' + user.emailAddress + '">');
+    $("#linkedin").append('<h3>LinkedIn: </h3>' + '<input type="text" value="' + user.publicProfileUrl + '">');
+  }
+
+  // Handle an error response from the API call
+  function onError(error) {
+    console.log(error);
+  }
+
+  // Destroy the session of linkedin
+  function logout() {
+    IN.User.logout(removeProfileData);
+  }
+
+  // Remove profile data from page
+  function removeProfileData() {
+    document.getElementById('profileData').remove();
+  }
+
+  $(document).ready(() => {
+    $('#tambah').click(() => {
+      $('#user-skill').append('<div><select class="keahlian"></select>' + '<select class="level"></select></div>');
+      $('.keahlian').last().select2({
+        "data": JSON.parse(localStorage.skill)
+      });
+      $('.level').last().select2({
+        "data": JSON.parse(localStorage.level)
+      });
+    });
+    $('#save').click(()=>{
+      data = {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value}
+      data['name'] = $('#name input').last().val();
+      data['email'] = $('#email input').last().val();
+      data['linkedin'] = $('#linkedin input').last().val();
+      window.keahlian = $(".keahlian");
+      level = $(".level");
+      data["skill"] = []
+      for(i=0;i<keahlian.length;i++){
+        data["skill"].push(keahlian[i].value +" " + level[i].value );
+      }
+      console.log(data);
+      $.ajax({
+        method: "POST",
+        url: window.location.href,
+        data: data,
+        success: function(friend) {
+          location.href = "{% url 'profile:index' %}"
+        },
+        error: function(error) {
+          alert("Gagal Menyimpan")
+        }
+      });
+    });
+  });
+</script>
+
+
+</html>
