@@ -4,47 +4,43 @@
 {% block content%}
 <section class="main-riwayat" id="riwayat">
 	<style>	
-		/*riwayat-khons{
-			background-image: url("http://1.bp.blogspot.com/-LML_MQrbHbU/VnPevmK4DHI/AAAAAAAABTQ/gM0xB-p3_8g/s1600/UI-fasilkom-b.png");
-			background-repeat: no-repeat;
-			background-position: right top;*/
-			/*margin-right: 200px;*/
-		}
 		/*all*/
 		table{
-			width:50%;
+			/*width:50%;*/
 			border: 1px solid black;
 			/*border-collapse: collapse;*/
-			text-align: left;
 		}
 		/*header*/
 		th {
 		    background-color: black;
 		    color: white;
+		    text-align: center;
+		    font-size: 175%; "
 		}
 		/*body*/
 		td:nth-child(odd){
-			background-color: #eee; /*grey*/
+			background-color: #FFe5e5; /*pink*/
 		}
 		td:nth-child(even) {
-			background-color:#fff; /*white*/
-			text-align: center;
+			background-color: #DCDCFF /*blue*/
+		}
+		div.scroll{s
+			width: 100%;
+			height: 250px;
+			overflow: scroll
 		}
 	</style>
 	<div class="container">
 		<div class="row">
-			<div class="riwayat-khons">
-				<table class="table">
-					<!-- <caption>
-						Riwayat Mahasiswa
-					</caption> -->
+			<div class="scroll">
+				<table class="table" >
 					<thead>
 					    <tr>
-					      <th>Mata Kuliah</th>
-					      <th style="text-align: center;">Nilai</th>
+					      <th >Mata Kuliah</th>
+					      <th >Nilai</th>
 				    	</tr>
 				  	</thead>
-					<tbody>
+					<tbody style="text-align: center; font-size: 125%; ">
 					{% for riwayat in riwayats %}
 						<tr>
 							<td>{{ riwayat.kelas.nm_mk_cl.nm_mk }}</td>
@@ -57,4 +53,5 @@
 		</div>
 	</div>
 </section>
+
 {% endblock %}
