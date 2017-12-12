@@ -1,5 +1,4 @@
-{% load staticfiles %}
-{% load static %}
+{% load staticfiles %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,10 +10,10 @@
   <meta name="author" content="Benny Ghalsa Miki Tirta">
   <!-- bootstrap css -->
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
   <!-- Font Family -->
-  <link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet">
-  {% block static %}
+  <link href="https://fonts.googleapis.com/css?family=Bungee+Shade" rel="stylesheet"> {% block static %}
   <!-- stylesheet goes here-->
   {% endblock %}
   <title>
@@ -23,35 +22,42 @@
 </head>
 
 <body>
-  <header>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          <a class="brand" href="{% url 'index' %}">SIAK-DEADLINE
-            </a>
+  <div class="innerwrap">
+    <section class="section1 clearfix">
+      <div>
+        <div class="row grid clearfix">
+          <div class="col2 first">
+            <img src="http://images.contactmusic.com/newsimages/david_beckham_1133321.jpg" alt="">
+            <h1>Hepzibah Sith</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+            <span id="logout">Logout</span>
+          </div>
+          <div class="col2 last">
+            <div class="grid clearfix">
+              <div class="col3 first">
+                <h1>0</h1>
+                <span>Posts </span>
+              </div>
+              <div class="col3">
+                <h1 id="forum">Forum</h1>
+              </div>
+              <div class="col3 last">
+                <h1 id="edit">Edit</h1>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url 'login:index' %}"> Status </a></li>
-            <li><a href="{% url 'profile:index' %}"> Profile </a> </li>
-            <li><a href="{% url 'riwayat:index' %}"> Riwayat </a></li>
-            <li><a href="{% url 'search:index' %}"> Search </a></li>
+        <div class="row clearfix">
+          <ul class="row2tab clearfix">
+            <li><i class="fa fa-home"></i><a href="{% url 'login:index' %}"> My Status </a> </li>
+            <li><i class="fa fa-user"></i><a href="{% url 'profile:index' %}"> My Profile </a></li>
+            <li><i class="fa fa-list-alt"></i><a href="{% url 'riwayat:index' %}"> My History</a></li>
+            <li><i class="fa fa-search "></i><a href="{% url 'search:index' %}"> Search </a></li>
           </ul>
         </div>
-        <!--/.nav-collapse -->
       </div>
-      <!--/.container-fluid -->
-    </nav>
-  </header>
-  <br>
-  <br>
+    </section>
+  </div>
   <content>
     {% block content %}
     <!-- content goes here -->
@@ -68,7 +74,7 @@
     $(document).ready(function() {
       // get current URL path and assign 'active' class
       var pathname = window.location.pathname;
-      $('.nav > li > a[href="' + pathname + '"]').parent().addClass('active');
+      $('.row2tab > li >  a[href="' + pathname + '"]').parent().addClass('row2tab-active');
     })
   </script>
   {% block script %}
