@@ -19,7 +19,7 @@ response = {}
 def index(request):
     print ("#==> masuk index")
     if 'user_login' in request.session:
-        return HttpResponseRedirect(reverse('page-login:profile'))
+        return HttpResponseRedirect(reverse('apps-status:status'))
     else:
         html = 'page_login/session/login.html'
         return render(request, html, response)

@@ -21,6 +21,7 @@ import apps_login.urls as apps_login
 import apps_profile.urls as apps_profile
 import apps_riwayat.urls as apps_riwayat
 import apps_search.urls as apps_search
+import apps_status.urls as apps_status
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,5 +29,6 @@ urlpatterns = [
     url(r'^mahasiswa/riwayat/', include(apps_riwayat,namespace='riwayat')),
 	url(r'^mahasiswa/search/', include(apps_search,namespace='search')),
     url(r'^mahasiswa/login/', include(apps_login,namespace='login')),
+	url(r'^mahasiswa/status/', include(apps_status,namespace='status')),
     url(r'^$', RedirectView.as_view(url='/mahasiswa/login/',permanent='true'), name='index'),
 ]

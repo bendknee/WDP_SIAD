@@ -1,0 +1,63 @@
+{% extends "layout/base.html" %} {% load staticfiles %} {% block static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/update_status.css' %}" />
+{% endblock %}
+
+{% block script %}
+<script>
+$(".delete-button").on("click",function(){
+	var id = $(this).data('id');
+	$.ajax({
+		url:"delete_status",
+		type:"POST",
+		data:{csrfmiddlewaretoken:document.getElementsByName('csrfmiddlewaretoken')[0].value, "id":id},
+		dataType: "json",
+	});
+	location.href="/status/";
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="page_title"><b><i>Update Status</i></b></div>
+<hr/>
+<section>
+<form id="form" method="POST" action="{% url 'status:update_status' %}" }>
+	{% csrf_token %}
+	{{ status_form }}
+	<br/>
+	<input class="btn btn-lg	 btn-primary btn-info" id="submit" type="submit" value="Post">
+</form>
+</section>
+<section>
+<ul class="timeline">
+	{% if status %}
+  {% for data in status %}
+	<li>
+		<div class="avatar">
+				<img src="{% static 'img/profil.jpg' %}">
+					<div class="hover">
+					<a href="{% url 'profile-page:index'%}">Click</a>
+				</div>
+		</div>
+		<div class="bubble-container">
+			<div class="bubble">
+				<h3>{{name}}</h3><br/>
+				{{data.status}}
+				<div class="date">{{data.created_date}}</div>
+				<div class="over-bubble">
+					<div class="delete-button">Delete</div>
+				</div>
+			</div>
+
+		</div>
+	</li>
+  {% endfor %}
+</ul>
+  {% else %}
+    <div class="alert alert-danger text-center">
+        <strong>Sorry!</strong> You haven't updated your status.
+    </div>
+  {% endif %}
+</section>
+
+{% endblock %}
