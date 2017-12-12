@@ -129,7 +129,7 @@ venv.bak/
 
 ### venv ###
 # Linux
-bin/ 
+bin/
 include/
 
 # Window
@@ -235,6 +235,6 @@ fabric.properties
 
 # End of https://www.gitignore.io/api/pycharm
 
-socmedProject/static/*
+deadline/static/*
 chromedriver
 chromedriver.exe
