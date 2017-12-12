@@ -15,15 +15,16 @@ def index(request):
         nama = get_data_user(access_token,npm)['nama']
         response['name'] = nama
         response['status'] = "-"
-        response['total_post'] = 20
+        response['total_post'] = 0
         if not User.objects.filter(npm=npm).exists():
             user = User.objects.create(username=username, npm=npm)
             user.save()
         else:
             user = User.objects.get(npm=npm)
             status = Status.objects.filter(user = user)
+            response['total_post'] = status.count()
             if(status.count()>0):
-                response['status'] = status[-1]
+                response['status'] = status.order_by('-id')[0].status
             else:
                 response['status'] = '-'
         return render(request,'profile/profile.html',response)
