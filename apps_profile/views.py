@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from .models import *
 from apps_status.models import Status
 from apps_login.csui_helper import get_data_user
@@ -9,25 +9,51 @@ from apps_login.csui_helper import get_data_user
 response = {}
 def index(request):
     if 'user_login' in request.session:
+        npm = request.session['kode_identitas']
+        return HttpResponseRedirect(reverse('profile:profile',kwargs={'npm':npm}))
+    else:
+        return HttpResponseRedirect(reverse('login:index'))
+
+def profile(request, npm):
+    if 'user_login' in request.session:
         username = request.session['user_login']
         access_token = request.session['access_token']
-        npm = request.session['kode_identitas']
-        nama = get_data_user(access_token,npm)['nama']
+        npm_session = request.session['kode_identitas']
+        nama = get_data_user(access_token,npm_session)['nama']
         response['name'] = nama
         response['status'] = "-"
         response['total_post'] = 0
-        if not User.objects.filter(npm=npm).exists():
-            user = User.objects.create(username=username, npm=npm)
-            user.save()
+        response['npm'] = npm_session
+        if npm == npm_session:
+            if not User.objects.filter(npm=npm_session).exists():
+                user = User.objects.create(username=username, npm=npm)
+                user.save()
         else:
+            response['can_edit'] = False
+        user_session = User.objects.get(npm=npm_session)
+        status = Status.objects.filter(user = user_session)
+        response['total_post'] = status.count()
+        if(status.count()>0):
+            response['status'] = status.order_by('-id')[0].status
+        else:
+            response['status'] = '-'
+        if(User.objects.filter(npm=npm).exists()):
             user = User.objects.get(npm=npm)
-            status = Status.objects.filter(user = user)
-            response['total_post'] = status.count()
-            if(status.count()>0):
-                response['status'] = status.order_by('-id')[0].status
-            else:
-                response['status'] = '-'
-        response['user'] = user
-        return render(request,'profile/profile.html',response)
+            response['user'] = user
+            return render(request,'profile/profile.html',response)
+        else:
+            return HttpResponseRedirect(reverse('profile:index'))
+    else:
+        return HttpResponseRedirect(reverse('login:index'))
+
+def edit_profile(request,npm):
+    if 'user_login' in request.session:
+        if request.method == 'POST':
+            n = request.POST
+        else:
+            npm_session = request.session['kode_identitas']
+            if npm_session != npm:
+                return JsonResponse({'status':'you are not authorized'})
+            return render(request,'profile/edit_profile.html')
     else:
         return HttpResponseRedirect(reverse('login:index'))

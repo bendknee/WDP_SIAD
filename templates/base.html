@@ -30,7 +30,7 @@
             <img src="http://images.contactmusic.com/newsimages/david_beckham_1133321.jpg" alt="">
             <h1>{{ name }}</h1>
             <p>{{ status }}</p>
-            <span id="logout">Logout</span>
+            <span id="logout"><a href="{% url 'login:auth_logout' %}">Logout</a></span>
           </div>
           <div class="col2 last">
             <div class="grid clearfix">
@@ -42,7 +42,7 @@
                 <h1 id="forum">Forum</h1>
               </div>
               <div class="col3 last">
-                <h1 id="edit">Edit</h1>
+                <h1 id="edit"><a href="{% url 'profile:edit' npm %}">Edit</a></h1>
               </div>
             </div>
           </div>
