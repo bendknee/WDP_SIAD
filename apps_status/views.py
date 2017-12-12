@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
-from profile_page.views import response as resp
 from .forms import Status_Form
 from .models import Status
 
@@ -10,7 +9,6 @@ response = {}
 def index(request):
     response['status_form'] = Status_Form
     response['status'] = Status.objects.all()[::-1]
-    response['name'] = resp['author']
     html = 'apps_status/status.html'
     return render(request,html,response)
 
@@ -20,7 +18,7 @@ def update_status(request):
         status = request.POST['status']
         status = Status(status = status)
         status.save()
-    return HttpResponseRedirect('/status/')
+    return HttpResponseRedirect('mahasiswa/status/')
 
 def delete_status(request):
     if(request.method == 'POST'):

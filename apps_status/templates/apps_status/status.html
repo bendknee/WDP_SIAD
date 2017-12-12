@@ -1,4 +1,4 @@
-{% extends "layout/base.html" %} {% load staticfiles %} {% block static %}
+{% extends "base.html" %} {% load staticfiles %} {% block static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/update_status.css' %}" />
 {% endblock %}
 
@@ -36,7 +36,7 @@ $(".delete-button").on("click",function(){
 		<div class="avatar">
 				<img src="{% static 'img/profil.jpg' %}">
 					<div class="hover">
-					<a href="{% url 'profile-page:index'%}">Click</a>
+					<a href="{% url 'profile:index'%}">Click</a>
 				</div>
 		</div>
 		<div class="bubble-container">

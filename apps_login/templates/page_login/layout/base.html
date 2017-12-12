@@ -10,16 +10,14 @@
 
     <!-- bootstrap csss -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/lab_9.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/page_login.css' %}" />
 
     <title>
-        {% block title %} Lab 9 {% endblock %}
+        {% block title %} Tugas 2 {% endblock %}
     </title>
 </head>
 <body>
-   <header>
-       {% include "lab_9/partials/header.html" %}
-   </header>
+
 <content>
     <div class="container">
         {% for message in messages %}
@@ -36,11 +34,7 @@
         {% endblock %}
     </div>
 </content>
-   <footer>
-       {% block footer %}
-       {% include "lab_9/partials/footer.html" %}
-       {% endblock %}
-   </footer>
+
 
 <!-- Jquery n Bootstrap Script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
