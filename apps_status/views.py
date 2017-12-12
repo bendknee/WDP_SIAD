@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from .forms import Status_Form
+from django.urls import reverse
 from .models import Status
 from apps_profile.models import User
 from apps_login.csui_helper import get_data_user
@@ -27,7 +28,7 @@ def index(request):
             npm = request.session['kode_identitas']          
         return render(request,html,response)
     else :
-        return HttpResponseRedirect('login:index')
+        return HttpResponseRedirect(reverse('login:index'))
 
 def update_status(request):
     form = Status_Form(request.POST or None)
