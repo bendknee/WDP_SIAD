@@ -6,3 +6,4 @@ urlpatterns=[
     url(r'^update_status/', update_status,name='update_status'),
     url(r'^delete_status/',delete_status,name='delete_status'),
 ]
+

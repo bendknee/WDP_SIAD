@@ -18,7 +18,7 @@ def update_status(request):
         status = request.POST['status']
         status = Status(status = status)
         status.save()
-    return HttpResponseRedirect('mahasiswa/status/')
+    return HttpResponseRedirect('/mahasiswa/status/')
 
 def delete_status(request):
     if(request.method == 'POST'):
