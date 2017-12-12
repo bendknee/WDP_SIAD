@@ -48,12 +48,26 @@ def profile(request, npm):
 
 def edit_profile(request,npm):
     if 'user_login' in request.session:
+        response['npm'] = request.session['kode_identitas']
         if request.method == 'POST':
-            n = request.POST
+            user = User.objects.get(npm=npm)
+            user.email = request.POST['email']
+            user.save()
+            user.name = request.POST['name']
+            user.save()
+            user.linkedin_profile = request.POST['linkedin']
+            user.save()
+            user.flag_nilai = True
+            user.save()
+            for ex in request.POST.getlist('skill[]'):
+                expertise = Expertise.objects.create(expertise=ex)
+                user.expertise.add(expertise)
+                user.save()
+            return HttpResponseRedirect(reverse('profile:index'))
         else:
             npm_session = request.session['kode_identitas']
             if npm_session != npm:
                 return JsonResponse({'status':'you are not authorized'})
-            return render(request,'profile/edit_profile.html')
+            return render(request,'profile/edit_profile.html',response)
     else:
         return HttpResponseRedirect(reverse('login:index'))

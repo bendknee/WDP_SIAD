@@ -22,6 +22,3 @@ LEVEL_CHOICES = (
 class Expertise(models.Model):
     expertise = models.CharField(max_length=20)
     level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default='1')
-
-    def __str__(self):
-        return str(self.expertise)

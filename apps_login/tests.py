@@ -11,7 +11,7 @@ root = environ.Path(__file__) - 3 # three folder back (/a/b/c/ - 3 = /)
 env = environ.Env(DEBUG=(bool, False),)
 environ.Env.read_env('.env')
 
-class lab10UnitTest(TestCase):
+class logInUnitTest(TestCase):
 	def setUp(self):
 		self.username = env("SSO_USERNAME")
 		self.password = env("SSO_PASSWORD")
@@ -20,6 +20,6 @@ class lab10UnitTest(TestCase):
 		response = Client().get('/mahasiswa/login/')
 		self.assertEqual(response.status_code, 200)
     
-	def test_lab_9_using_index_func(self):
+	def test_log_in_using_index_func(self):
 		found = resolve('/mahasiswa/login/')
 		self.assertEqual(found.func, index) 
