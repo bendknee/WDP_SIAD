@@ -27,6 +27,7 @@ def index(request):
                 response['status'] = status.order_by('-id')[0].status
             else:
                 response['status'] = '-'
+        response['user'] = user
         return render(request,'profile/profile.html',response)
     else:
         return HttpResponseRedirect(reverse('login:index'))

@@ -4,7 +4,17 @@
 {% block static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}" />
 {% endblock %}
-
 {% block content%}
-
+<h1>Nama : {{ user.name}} </h1>
+<h1>NPM : {{ user.npm}} </h1>
+<h1>Keahlian</h1>
+{% if user.expertise.all %}
+{% for expertise in user.expertise.all %}
+<h2>{{expertise}}</h2>
+{% endfor %}
+{% else %}
+<h2>Kosong</h2>
+{% endif %}
+<h1>Email : {{ user.email}} </h1>
+<h1>LinkedIn : {{ user.linkedin_profile}} </h1>
 {% endblock %}
