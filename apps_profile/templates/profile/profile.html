@@ -5,16 +5,18 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}" />
 {% endblock %}
 {% block content%}
-<h1>Nama : {{ user.name}} </h1>
-<h1>NPM : {{ user.npm}} </h1>
-<h1>Keahlian</h1>
+<div class="content-wrap">
+<h2><strong>Nama</strong> : {{ user.name}} </h1>
+<h2><strong>NPM</strong> : {{ user.npm}} </h1>
+<h2><strong>Keahlian</strong></h2>
 {% if user.expertise.all %}
 {% for expertise in user.expertise.all %}
-<h2>{{expertise}}</h2>
+<h3>{{expertise.expertise}}</h3>
 {% endfor %}
 {% else %}
 <h2>Kosong</h2>
 {% endif %}
-<h1>Email : {{ user.email}} </h1>
-<h1>LinkedIn : {{ user.linkedin_profile}} </h1>
+<h2><strong>Email </strong>: {{ user.email}} </h2>
+<h2><strong>LinkedIn</strong> : {{ user.linkedin_profile}} </h2>
+</div>
 {% endblock %}
