@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps_profile',
     'apps_riwayat',
     'apps_search',
+    'apps_login',
 ]
 
 MIDDLEWARE = [
