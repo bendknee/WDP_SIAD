@@ -29,7 +29,7 @@ $(".delete-button").on("click",function(){
 <section>
 <ul class="timeline">
 	{% if status %}
-  {% for data in status %}
+  {% for data in list_status %}
 	<li>
 		<div class="avatar">
 				<img src="{% static 'img/profil.jpg' %}">
@@ -39,7 +39,7 @@ $(".delete-button").on("click",function(){
 		</div>
 		<div class="bubble-container">
 			<div class="bubble">
-				<h3>{{name}}</h3><br/>
+				<h3>{{author}}</h3><br/>
 				{{data.status}}
 				<div class="date">{{data.created_date}}</div>
 				<div class="over-bubble">
