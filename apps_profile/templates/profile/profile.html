@@ -1,1 +1,10 @@
-{% extends base.html %}
+{% extends "base.html" %}
+{% load static %}
+
+{% block static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}" />
+{% endblock %}
+
+{% block content%}
+
+{% endblock %}
