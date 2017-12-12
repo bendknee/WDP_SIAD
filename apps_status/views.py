@@ -19,8 +19,8 @@ def index(request):
         user = User.objects.get(npm=npm)
         status = Status.objects.filter(user=user)
         response['total_post'] = status.count()
+        response['name'] = nama
         if(status.count()>0):
-            response['name'] = nama
             response['status'] = status.order_by('-id')[0].status
         if 'user_login' in request.session:
             npm = request.session['kode_identitas']          
