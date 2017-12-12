@@ -28,5 +28,5 @@ urlpatterns = [
     url(r'^mahasiswa/riwayat/', include(apps_riwayat,namespace='riwayat')),
 	url(r'^mahasiswa/search/', include(apps_search,namespace='search')),
     url(r'^mahasiswa/login/', include(apps_login,namespace='login')),
-    url(r'^$', RedirectView.as_view(url='/mahasiswa/status/',permanent='true'), name='index'),
+    url(r'^$', RedirectView.as_view(url='/mahasiswa/login/',permanent='true'), name='index'),
 ]
