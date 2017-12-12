@@ -11,5 +11,17 @@ class User(models.Model):
     email = models.EmailField(default='Kosong')
     linkedin_profile = models.URLField(default='Kosong')
 
+
+LEVEL_CHOICES = (
+    ('1', 'Beginner'),
+    ('2', 'Intermediate'),
+    ('3', 'Advanced'),
+    ('4', 'Expert')
+)
+
 class Expertise(models.Model):
     expertise = models.CharField(max_length=20)
+    level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default='1')
+
+    def __str__(self):
+        return str(self.expertise)
