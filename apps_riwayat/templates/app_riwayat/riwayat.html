@@ -1,12 +1,37 @@
 <section class="main-riwayat" id="riwayat">
+	<style>	
+		/*all*/
+		table{
+			width:85%;
+			border: 1px solid black;
+			/*border-collapse: collapse;*/
+			text-align: left;
+		}
+		/*header*/
+		th {
+		    background-color: black;
+		    color: white;
+		}
+		/*body*/
+		td:nth-child(odd){
+			background-color: #eee; /*grey*/
+		}
+		td:nth-child(even) {
+			background-color:#fff; /*white*/
+			text-align: center;
+		}
+	</style>
 	<div class="container">
 		<div class="row">
 			<div class="riwayat-khons">
 				<table class="table">
+					<caption>
+						Riwayat Mahasiswa
+					</caption>
 					<thead>
 					    <tr>
 					      <th>Mata Kuliah</th>
-					      <th>Nilai</th>
+					      <th style="text-align: center;">Nilai</th>
 				    	</tr>
 				  	</thead>
 					<tbody>
