@@ -25,7 +25,7 @@ class ProfileUnitTest(TestCase):
         npm = self.client.session['kode_identitas']
         User.objects.create(npm=npm)
         response = self.client.get('/mahasiswa/profile/'+npm+'/edit/',follow=True)
-        response = self.client.post('/mahasiswa/profile/'+npm+'/edit/',{'email':'lalala@gmail.com','name':'lalala','linkedin':'http://lalala.ni/'},follow=True)
+        response = self.client.post('/mahasiswa/profile/'+npm+'/edit/',{'tampilkan':'yes','email':'lalala@gmail.com','name':'lalala','linkedin':'http://lalala.ni/'},follow=True)
         self.assertEqual(response.status_code,200)
 
     def test_profile_edit_is_failed(self):
