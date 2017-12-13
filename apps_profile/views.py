@@ -31,12 +31,16 @@ def profile(request, npm):
         else:
             response['can_edit'] = False
         user_session = User.objects.get(npm=npm_session)
+        if user_session.name == 'Kosong':
+            response['alert'] = True
+        else:
+            response['alert'] = False
         status = Status.objects.filter(user = user_session)
         response['total_post'] = status.count()
         if(status.count()>0):
             response['status'] = status.order_by('-id')[0].status
         else:
-            response['status'] = '-'
+            response['status'] = ''
         if(User.objects.filter(npm=npm).exists()):
             user = User.objects.get(npm=npm)
             response['user'] = user
@@ -57,12 +61,13 @@ def edit_profile(request,npm):
             user.save()
             user.linkedin_profile = request.POST['linkedin']
             user.save()
-            user.flag_nilai = True
+            user.flag_nilai = True if request.POST['tampilkan'] == 'yes' else False
             user.save()
             for ex in request.POST.getlist('skill[]'):
-                expertise = Expertise.objects.create(expertise=ex)
-                user.expertise.add(expertise)
-                user.save()
+                if not user.expertise.filter(expertise=ex).exists():
+                    expertise = Expertise.objects.create(expertise=ex)
+                    user.expertise.add(expertise)
+                    user.save()
             return HttpResponseRedirect(reverse('profile:index'))
         else:
             npm_session = request.session['kode_identitas']

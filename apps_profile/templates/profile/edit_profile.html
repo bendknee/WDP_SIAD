@@ -5,20 +5,34 @@
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 </head>
+<style>
+  .container {
+    position: relative;
+    width: 75%;
+    height: 100%;
+    margin-left: 12.5%;
+    background-color: rgba(55, 52, 57, 0.67);
+  }
+  .link-data input{
+    width:300px;
+  }
+</style>
 
 <body>
   <div class="container">
     <center>
       <div id="picture"></div>
-      <h4 id="npm"> {{ kode_identitas }} </h4>
-      <span><button id="save">SIMPAN</button></span>
-      <span><button onclick="location.href='{% url 'profile:index' %}'">KELUAR</button></span>
+      <input type='text' value='{{npm}}' disabled>
+      <span><button class="btn btn-info" id="save">Save</button></span>
+      <span><button class="btn btn-danger" onclick="location.href='{% url 'profile:index' %}'">Cancel</button></span>
     </center>
     <h2>Data Pribadi</h2>
     <script type="IN/Login"></script>
-    <div id="name"></div>
-    <div id="email"></div>
-    <div id="linkedin"></div>
+    <div class="link-data">
+      <div id="name"></div>
+      <div id="email"></div>
+      <div id="linkedin"></div>
+    </div>
     <div class="nilai">
       <h4><strong>Tampilkan nilai</strong></h4>
       <label><input type="radio" id="akses-nilai" name ="nilai" value="no" checked="True"> Tidak</label>
@@ -29,7 +43,7 @@
       <h2>Keahlian</h2>
       <table id="user-skill">
       </table>
-      <button id="tambah">Tambahkan</button>
+      <button class="btn btn-success btn-lg" id="tambah">Tambahkan</button>
     </div>
   </div>
 </body>
@@ -119,16 +133,19 @@
         "data": JSON.parse(localStorage.level)
       });
     });
-    $('#save').click(()=>{
-      data = {csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value}
+    $('#save').click(() => {
+      data = {
+        csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value
+      }
       data['name'] = $('#name input').last().val();
       data['email'] = $('#email input').last().val();
       data['linkedin'] = $('#linkedin input').last().val();
       window.keahlian = $(".keahlian");
       level = $(".level");
+      data['tampilkan'] = $('#akses-nilai').val()
       data["skill"] = []
-      for(i=0;i<keahlian.length;i++){
-        data["skill"].push(keahlian[i].value +" " + level[i].value );
+      for (i = 0; i < keahlian.length; i++) {
+        data["skill"].push(keahlian[i].value + " " + level[i].value);
       }
       console.log(data);
       $.ajax({

@@ -7,6 +7,10 @@ strong{
   left:50%;
   transform: translateX(-50%);
   max-width: 50%;
-
-  color:white;
+  background-color: white;
+  color:black;
+}
+h4{
+  color:blue;
+  font-weight: 1000;
 }

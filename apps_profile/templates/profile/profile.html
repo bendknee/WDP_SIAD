@@ -1,22 +1,19 @@
-{% extends "base.html" %}
-{% load static %}
-
-{% block static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}" />
-{% endblock %}
-{% block content%}
+{% extends "base.html" %} {% load static %} {% block static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}" /> {% endblock %} {% block content%}
 <div class="content-wrap">
-<h2><strong>Nama</strong> : {{ user.name}} </h1>
+  <h2><strong>Nama</strong> : {{ user.name}} </h1>
 <h2><strong>NPM</strong> : {{ user.npm}} </h1>
-<h2><strong>Keahlian</strong></h2>
-{% if user.expertise.all %}
-{% for expertise in user.expertise.all %}
-<h3>{{expertise.expertise}}</h3>
-{% endfor %}
-{% else %}
-<h2>Kosong</h2>
-{% endif %}
-<h2><strong>Email </strong>: {{ user.email}} </h2>
-<h2><strong>LinkedIn</strong> : {{ user.linkedin_profile}} </h2>
+<h2><strong>Keahlian</strong></h2> {% if user.expertise.all %} {% for expertise in user.expertise.all %}
+  <h4>{{expertise.expertise}}</h4> {% endfor %} {% else %}
+  <h2>Kosong</h2> {% endif %}
+  <h2><strong>Email </strong>: {{user.email}} </h2>
+  <h2><strong>LinkedIn</strong> : <a href="{{ user.linkedin_profile}}"> {{ user.linkedin_profile}} </a> </h2>
 </div>
+{% endblock %}
+{% block script %}
+{% if alert %}
+<script>
+alert("Isi data kamu yang masih kosong")
+</script>
+{% endif %}
 {% endblock %}

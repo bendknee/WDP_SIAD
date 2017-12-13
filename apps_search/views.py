@@ -13,9 +13,9 @@ response = {}
 def index(request):
     if 'user_login' in request.session:
         html = 'search/search.html'
-        response['data'] = get_user_data()
         npm = request.session['kode_identitas']
         access_token = request.session['access_token']
+        response['data'] = get_user_data(request)
         nama = get_data_user(access_token,npm)['nama']
         response['author'] = request.session['user_login']
         user = User.objects.get(npm=npm)
@@ -38,7 +38,7 @@ def search(request, key):
     else:
         return HttpResponseRedirect(reverse('login:index'))
 
-def get_user_data():
+def get_user_data(request):
     if 'user_login' in request.session:
         users = User.objects.all()
         data = []
