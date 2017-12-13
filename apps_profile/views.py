@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.core import serializers
 from .models import *
 from apps_status.models import Status
 from apps_login.csui_helper import get_data_user
+from apps_riwayat.views import get_riwayat
 
 # Create your views here.
 response = {}
@@ -76,3 +78,10 @@ def edit_profile(request,npm):
             return render(request,'profile/edit_profile.html',response)
     else:
         return HttpResponseRedirect(reverse('login:index'))
+
+
+def get_json(request,npm):
+    user = User.objects.filter(npm=npm).values()[0]
+    data  = user
+    data['riwayat'] = get_riwayat()
+    return JsonResponse(data)
